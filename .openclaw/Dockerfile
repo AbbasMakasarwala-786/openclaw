@@ -17,4 +17,4 @@ ENV PORT=18789
 EXPOSE $PORT
 
 # Start OpenClaw gateway
-CMD ["openclaw", "gateway", "start"]
+CMD ["openclaw", "gateway", "start", "--no-daemon"]
