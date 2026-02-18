@@ -1,0 +1,39 @@
+{
+  "gateway": {
+    "port": 18789,
+    "mode": "public",
+    "bind": "0.0.0.0",
+    "auth": {
+      "mode": "token",
+      "token": "your-gateway-token-here"
+    }
+  },
+  "models": {
+    "providers": {
+      "ollama": {
+        "baseUrl": "https://ollama.com/v1",
+        "apiKey": "79b652ed56b74a5593373a71c52223c2.aFJR18EgaxzGV_ULTcQ7G66b",
+        "api": "openai-completions",
+        "models": [
+          {
+            "id": "qwen3.5:cloud",
+            "name": "Qwen 3.5 Cloud",
+            "reasoning": false,
+            "input": ["text"],
+            "cost": { "input": 0, "output": 0, "cacheRead": 0, "cacheWrite": 0 },
+            "contextWindow": 131072,
+            "maxTokens": 8192
+          }
+        ]
+      }
+    }
+  },
+  "agents": {
+    "defaults": {
+      "model": { "primary": "ollama/qwen3.5:cloud" },
+      "workspace": "/app/workspace",
+      "maxConcurrent": 4,
+      "subagents": { "maxConcurrent": 8 }
+    }
+  }
+}
