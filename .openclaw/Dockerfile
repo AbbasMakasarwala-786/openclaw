@@ -1,20 +1,12 @@
 FROM node:22-slim
 
-# Install git (required by openclaw's npm install)
-RUN apt-get update && apt-get install -y git && rm -rf /var/lib/apt/lists/*
-
-# Install OpenClaw globally
+RUN apt-get update && apt-get install -y git curl && rm -rf /var/lib/apt/lists/*
 RUN npm install -g openclaw
 
-# Set working directory
 WORKDIR /app
-
-# Create necessary directories
 RUN mkdir -p /root/.openclaw /app/workspace
 
-# Expose port (Railway sets $PORT)
 ENV PORT=18789
 EXPOSE $PORT
 
-# Start OpenClaw gateway
-CMD ["openclaw", "gateway", "start", "--no-daemon"]
+CMD ["sh", "-c", "curl -s -o /dev/null -w '%{http_code}' -H 'Authorization: Bearer $OLLAMA_API_KEY' https://ollama.com/api/tags && openclaw gateway start"]
